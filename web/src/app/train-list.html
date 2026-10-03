@@ -1,0 +1,43 @@
+<header class="head">
+  <h1>Trains around Dresden</h1>
+  <p class="status" role="status" [attr.data-state]="status()">
+    <span class="dot" aria-hidden="true"></span>{{ statusLabel() }}
+  </p>
+</header>
+
+<div class="lines">
+  @for (group of groups(); track group.lineId) {
+    <section class="line">
+      <h2>
+        <span class="badge" [style.--c]="color(group.lineId)">{{ group.lineId }}</span>
+        {{ group.vehicles.length }} {{ group.vehicles.length === 1 ? 'train' : 'trains' }}
+      </h2>
+      <ul>
+        @for (v of group.vehicles; track v.vehicleId) {
+          <li>
+            <button
+              type="button"
+              class="row"
+              [class.selected]="v.vehicleId === selectedId()"
+              [attr.data-id]="v.vehicleId"
+              [attr.aria-pressed]="v.vehicleId === selectedId()"
+              (click)="toggle(v.vehicleId)"
+            >
+              <span class="id">{{ v.vehicleId }}</span>
+              <span class="delay" [class]="delayClass(v)">{{ delayText(v) }}</span>
+              <span class="speed">{{ v.speedKmh | number: '1.0-0' }} km/h</span>
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+  } @empty {
+    @if (status() === 'live') {
+      <p class="empty">No trains yet. Start the simulator and they will appear here.</p>
+    } @else {
+      <p class="empty">Waiting for the server at the API address. Check that the API is running.</p>
+    }
+  }
+</div>
+
+<footer class="foot">Positions are simulated.</footer>

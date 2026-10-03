@@ -1,0 +1,29 @@
+:root {
+  --font-body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ink: #14222d;
+  --muted: #55646f;
+  --panel: #f3f5f7;
+  --rule: #d6dde2;
+  --hover: #e8edf0;
+  --focus: #1f5fbf;
+  --ok: #1e6b43;
+  --minor: #8a5700;
+  --major: #b3261e;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
