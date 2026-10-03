@@ -9,17 +9,18 @@ is in place, a simulator publishes fake positions.
 ## Architecture
 
 ```
-simulator --MQTT--> Mosquitto broker --MQTT--> API (ASP.NET Core) --WebSocket--> Angular map
+simulator --MQTT--> Mosquitto broker --MQTT--> API (ASP.NET Core) --WebSocket--> Angular + Leaflet map
 ```
 
 ## Run locally
 
-Requirements: Docker, .NET SDK.
+Requirements: Docker, .NET SDK (with the ASP.NET Core runtime), Node.js.
 
 ```bash
 docker compose up -d                 # MQTT broker on port 1883
 cd simulator && dotnet run           # publishes 10 simulated trains
 cd api && dotnet run                 # in a second terminal
+cd web && npm install && npm start   # third terminal, then open http://localhost:4200
 curl http://localhost:5080/api/vehicles
 ```
 
@@ -31,5 +32,5 @@ Watch the raw messages: `mosquitto_sub -h 127.0.0.1 -t 'vehicles/#' -v`
 - [x] API subscribes and exposes the latest positions
 - [ ] Persistence in SQL (EF Core)
 - [x] Live push to the browser (raw WebSocket at /ws)
-- [ ] Angular and Leaflet map
+- [x] Angular and Leaflet map
 - [ ] Real GTFS / GTFS-RT ingestion with estimated positions
