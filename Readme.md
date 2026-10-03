@@ -9,7 +9,7 @@ is in place, a simulator publishes fake positions.
 ## Architecture
 
 ```
-simulator --MQTT--> Mosquitto broker --MQTT--> API (ASP.NET Core) --> (planned) SignalR --> Angular map
+simulator --MQTT--> Mosquitto broker --MQTT--> API (ASP.NET Core) --WebSocket--> Angular map
 ```
 
 ## Run locally
@@ -30,6 +30,6 @@ Watch the raw messages: `mosquitto_sub -h 127.0.0.1 -t 'vehicles/#' -v`
 - [x] MQTT broker and simulator
 - [x] API subscribes and exposes the latest positions
 - [ ] Persistence in SQL (EF Core)
-- [ ] Live push to the browser (SignalR)
+- [x] Live push to the browser (raw WebSocket at /ws)
 - [ ] Angular and Leaflet map
 - [ ] Real GTFS / GTFS-RT ingestion with estimated positions
