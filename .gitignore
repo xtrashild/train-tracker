@@ -3,4 +3,8 @@ obj/
 .vs/
 .idea/
 *.user
+
+# Downloaded timetable data and local secrets
 gtfs/
+*.zip
+.env

@@ -17,7 +17,7 @@ simulator --MQTT--> Mosquitto broker --MQTT--> API (ASP.NET Core) --WebSocket-->
 Requirements: Docker, .NET SDK (with the ASP.NET Core runtime), Node.js.
 
 ```bash
-docker compose up -d                 # MQTT broker on port 1883
+docker compose up -d                 # MQTT broker (1883) and PostgreSQL (5432)
 cd simulator && dotnet run           # publishes 10 simulated trains
 cd api && dotnet run                 # in a second terminal
 cd web && npm install && npm start   # third terminal, then open http://localhost:4200
@@ -30,7 +30,9 @@ Watch the raw messages: `mosquitto_sub -h 127.0.0.1 -t 'vehicles/#' -v`
 
 - [x] MQTT broker and simulator
 - [x] API subscribes and exposes the latest positions
-- [ ] Persistence in SQL (EF Core)
+- [ ] PostgreSQL timetable (EF Core migrations) and GTFS import
 - [x] Live push to the browser (raw WebSocket at /ws)
 - [x] Angular and Leaflet map
-- [ ] Real GTFS / GTFS-RT ingestion with estimated positions
+- [ ] Position estimator with unit tests
+- [ ] Real-time worker: GTFS-RT delays to estimated positions on MQTT
+- [ ] Everything in Docker, deployed demo
